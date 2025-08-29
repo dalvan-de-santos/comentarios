@@ -1,115 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comentários</title>
-    <style>
-        body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
+{% extends "base.html" %}
 
-h1, h2 {
-    text-align: center;
-    color: #444;
-}
+{% block content %}
+    <div class="center">
+    <div class="container_coments">
+        <h1>💬 Comentários</h1>
+        <p>Usuário: {{ request.user.username }}</p>
 
-p {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #666;
-}
+        <form action="{% url 'comentarios' %}" method="POST">
+            {% csrf_token %}
+            <textarea name="texto" rows="4" placeholder="Escreva seu comentário aqui..."></textarea>
+            <button type="submit">Enviar</button>
+        </form>
 
-form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+        <h2>📝 Comentários Anteriores:</h2>
+        <ul>
+            {% for comentario in comentarios %}
+                <li>
+                    <strong>{{ comentario.user.username }}:</strong> {{ comentario.texto }} <br>
+                    <small>📅 {{ comentario.data_criacao }}</small>
+                </li>
+            {% empty %}
+                <li>Nenhum comentário ainda.</li>
+            {% endfor %}
+        </ul>
 
-textarea {
-    width: 100%;
-    padding: 10px;
-    resize: vertical;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    margin-bottom: 10px;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-ul {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 0;
-    list-style: none;
-}
-
-ul li {
-    background-color: #fff;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 5px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-}
-
-ul li strong {
-    color: #333;
-}
-
-    .logout-link {
-    display: inline-block;
-    padding: 8px 14px;
-    background-color: #e74c3c;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
-}
-
-.logout-link:hover {
-    background-color: #c0392b;
-    transform: scale(1.05);
-}
-    </style>
-</head>
-<body>
-    <h1>Comentários</h1>
-    <p>Usuario: {{ request.user.username }}</p>
-    <form action="{% url 'comentarios' %}" method="POST">
-        {% csrf_token %}
-        <textarea name="texto" rows="4" cols="50" placeholder="Escreva seu comentário aqui..."></textarea><br>
-        <button type="submit">Enviar</button>
-    </form>
-    <h2>Comentários Anteriores:</h2>
-    <ul>
-        {% for comentario in comentarios %}
-            <li><strong>{{ comentario.user.username }}:</strong> {{ comentario.texto }} {{ comentario.data_criacao }}</li>
-        {% empty %}
-            <li>Nenhum comentário ainda.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'logout' %}" class="logout-link">Sair</a>
-</body>
-</html>
+        <a href="{% url 'logout' %}" class="logout-link">Sair</a>
+    </div>
+    </div>
+{% endblock %}

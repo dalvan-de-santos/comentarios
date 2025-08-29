@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block content %}
+{%block content %}
     <div class="center">
     <div class="form-container">
-        <h1>Criar Usuário</h1>
-        <form action="{% url 'create_user' %}" method="post">
+        <h1>Login</h1>
+        <form action="{% url 'login_user' %}" method="post">
             {% csrf_token %}
             <label for="username">Usuário:</label>
             <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
@@ -12,8 +12,9 @@
             <label for="password">Senha:</label>
             <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
 
-            <button type="submit">Criar Conta</button>
+            <button type="submit">Entrar</button>
         </form>
+        <p>Não tem uma conta? <a href="{% url 'create_user' %}">Crie uma aqui</a></p>
     </div>
     </div>
 {% endblock %}
