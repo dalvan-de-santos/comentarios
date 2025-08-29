@@ -1,0 +1,36 @@
+# Arquivos e pastas do Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.log
+
+# Arquivos do ambiente virtual
+venv/
+.env/
+.venv/
+
+# Configurações de IDEs/editores
+.vscode/
+.idea/
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+
+# Banco de dados SQLite
+*.sqlite3
+
+# Arquivos estáticos e de mídia gerados
+/staticfiles/
+/media/
+
+# Cache do Django
+*.pot
+*.pyc
+*.mo
+
+# Configurações locais sensíveis
+.env
+local_settings.py
